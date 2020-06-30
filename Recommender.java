@@ -1,4 +1,4 @@
-import ecs100.*;
+/*import ecs100.*;*/
 import java.util.*;
 import java.io.*;
 import java.awt.Color;
@@ -12,6 +12,10 @@ public class Recommender
 {
     // instance variables - replace the example below with your own
     private HashMap<String, Movie> movieRecommendations;
+    private String movieName;
+    private String movieDirector;
+    private String movieGenre;
+    private double movieRating;
 
     /**
      * Constructor for objects of class Recommender
@@ -32,9 +36,18 @@ public class Recommender
      * 
      * @return      void 
      */
-    public void addMovie(String movieName, String movieDirector, String movieGenre, double movieRating)
+    public void addMovie(/*String movieName, String movieDirector, String movieGenre, double movieRating*/)
     {
         // put your code here
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Movie Name: ");
+        movieName = scan.nextLine();
+        System.out.println("Movie Director: ");
+        movieDirector = scan.nextLine();
+        System.out.println("Movie Genre: ");
+        movieGenre = scan.nextLine();
+        System.out.println("Movie Rating (1-10): ");
+        movieRating = scan.nextDouble();
         movieRecommendations.put(movieName, new Movie(movieName, movieDirector, movieGenre, movieRating));
     }
     

@@ -36,7 +36,7 @@ public class Recommender
      * 
      * @return      void 
      */
-    public void addMovie(/*String movieName, String movieDirector, String movieGenre, double movieRating*/)
+    public void addMovie()
     {
         // put your code here
         Scanner scan = new Scanner(System.in);
@@ -54,5 +54,14 @@ public class Recommender
     public void printDirector(String movie){
         String director = movieRecommendations.get(movie).getDirector();
         System.out.println(director);
+    }
+    
+    public void showAll(){
+        for (String key : movieRecommendations.keySet()){
+            System.out.println(key);
+            System.out.println(movieRecommendations.get(key).getDirector());
+            System.out.println(movieRecommendations.get(key).getGenre());
+            System.out.println(movieRecommendations.get(key).getRating());
+        }
     }
 }

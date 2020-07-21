@@ -64,4 +64,8 @@ public class Movie
     {
         return this.rating;
     }
+    
+    public void changeRating(double newRating){
+        this.rating = newRating;
+    }
 }

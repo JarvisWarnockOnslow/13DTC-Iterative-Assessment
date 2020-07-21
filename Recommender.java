@@ -1,4 +1,4 @@
-/*import ecs100.*;*/
+import ecs100.*;
 import java.util.*;
 import java.io.*;
 import java.awt.Color;
@@ -36,10 +36,10 @@ public class Recommender
      * 
      * @return      void 
      */
-    public void addMovie()
+    public void addMovie(String movieName, String movieDirector, String movieGenre, double movieRating)
     {
         // put your code here
-        Scanner scan = new Scanner(System.in);
+        /*Scanner scan = new Scanner(System.in);
         System.out.println("Movie Name: ");
         movieName = scan.nextLine();
         System.out.println("Movie Director: ");
@@ -47,21 +47,31 @@ public class Recommender
         System.out.println("Movie Genre: ");
         movieGenre = scan.nextLine();
         System.out.println("Movie Rating (1-10): ");
-        movieRating = scan.nextDouble();
+        movieRating = scan.nextDouble();*/
         movieRecommendations.put(movieName, new Movie(movieName, movieDirector, movieGenre, movieRating));
     }
     
-    public void printDirector(String movie){
-        String director = movieRecommendations.get(movie).getDirector();
-        System.out.println(director);
+    public void searchMovie(String search){
+        movieRecommendations.get(search).getName();
+        String movieDirector = movieRecommendations.get(search).getDirector();
+        String movieGenre = movieRecommendations.get(search).getGenre();
+        double movieRating = movieRecommendations.get(search).getRating();
+        UI.println("Title: "+search);
+        UI.println("Director: "+movieDirector);
+        UI.println("Genre: "+movieGenre);
+        UI.println("Rating: "+movieRating);
     }
     
     public void showAll(){
         for (String key : movieRecommendations.keySet()){
-            System.out.println(key);
-            System.out.println(movieRecommendations.get(key).getDirector());
-            System.out.println(movieRecommendations.get(key).getGenre());
-            System.out.println(movieRecommendations.get(key).getRating());
+            UI.println(key);
+            UI.println(movieRecommendations.get(key).getDirector());
+            UI.println(movieRecommendations.get(key).getGenre());
+            UI.println(movieRecommendations.get(key).getRating());
         }
     }
+    
+    /*public void rateMovie(String movieRate, double newRating){
+        movieRecommendations.get(movieRate).changeRating(newRating);
+    }*/
 }

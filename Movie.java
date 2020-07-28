@@ -3,7 +3,7 @@
  * A class for the individual movies
  * 
  * @author Jarvis Warnock 
- * @version 1
+ * @version 2
  */
 public class Movie
 {

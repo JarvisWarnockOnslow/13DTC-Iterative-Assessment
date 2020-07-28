@@ -17,12 +17,14 @@ public class GUI{
     private Recommender r = new Recommender();
     /**      */
     public GUI(){
-    UI.initialise();
-    UI.addButton("Quit", UI::quit);
-    UI.addButton("Add", this::newMovie);
-    UI.addButton("Search", this::searchMovie);
-    //UI.addButton("Rate", this::rateMovie);
-    UI.addButton("Show All", this::printAll);
+        UI.initialise();
+        UI.addButton("Quit", UI::quit);
+        UI.addButton("Add", this::newMovie);
+        UI.addButton("Search", this::searchMovie);
+        UI.addButton("Search Genre", this::searchGenre);
+        UI.addButton("Search Director", this::searchDirector);
+        /*UI.addButton("Rate", this::rateMovie);
+        UI.addButton("Show All", this::printAll);*/
     }
     
     public void newMovie(){
@@ -42,11 +44,21 @@ public class GUI{
        r.searchMovie(search);
     }
     
-    /*public void rateMovie(){
+    public void searchGenre(){
+        String search = UI.askString("Genre: ");
+        r.searchGenre(search);
+    }
+    
+    public void searchDirector(){
+        String search = UI.askString("Director: ");
+        r.searchDirector(search);
+    }
+    
+    public void rateMovie(){
         String movieRate = UI.askString("Movie Title: ");
-        String newRating = UI.askDouble("New Rating: ");
+        double newRating = UI.askDouble("New Rating: ");
         r.rateMovie(movieRate, newRating);
-    }*/
+    }
 
     public static void main(String[] args){
         GUI obj = new GUI();

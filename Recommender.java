@@ -6,7 +6,7 @@ import java.awt.Color;
  * The class that contains all of the main methods for the program such as adding as movie
  * 
  * @author Jarvis Warnock
- * @version 1
+ * @version 2
  */
 public class Recommender
 {
@@ -39,20 +39,10 @@ public class Recommender
     public void addMovie(String movieName, String movieDirector, String movieGenre, double movieRating)
     {
         // put your code here
-        /*Scanner scan = new Scanner(System.in);
-        System.out.println("Movie Name: ");
-        movieName = scan.nextLine();
-        System.out.println("Movie Director: ");
-        movieDirector = scan.nextLine();
-        System.out.println("Movie Genre: ");
-        movieGenre = scan.nextLine();
-        System.out.println("Movie Rating (1-10): ");
-        movieRating = scan.nextDouble();*/
         movieRecommendations.put(movieName, new Movie(movieName, movieDirector, movieGenre, movieRating));
     }
     
     public void searchMovie(String search){
-        movieRecommendations.get(search).getName();
         String movieDirector = movieRecommendations.get(search).getDirector();
         String movieGenre = movieRecommendations.get(search).getGenre();
         double movieRating = movieRecommendations.get(search).getRating();
@@ -60,6 +50,30 @@ public class Recommender
         UI.println("Director: "+movieDirector);
         UI.println("Genre: "+movieGenre);
         UI.println("Rating: "+movieRating);
+    }
+    
+    public void searchGenre(String search){
+        for (String key : movieRecommendations.keySet()){
+            if (movieRecommendations.get(key).getGenre().equals(search)){
+                UI.println("-------------------------------------");
+                UI.println("Title: " + key);
+                UI.println("Director: " + movieRecommendations.get(key).getDirector());
+                UI.println("Genre: " + movieRecommendations.get(key).getGenre());
+                UI.println("Rating: " + movieRecommendations.get(key).getRating());
+            }
+        }
+    }
+    
+    public void searchDirector(String search){
+        for (String key : movieRecommendations.keySet()){
+            if (movieRecommendations.get(key).getDirector().equals(search)){
+                UI.println("-------------------------------------");
+                UI.println("Title: " + key);
+                UI.println("Director: " + movieRecommendations.get(key).getDirector());
+                UI.println("Genre: " + movieRecommendations.get(key).getGenre());
+                UI.println("Rating: " + movieRecommendations.get(key).getRating());
+            }
+        }
     }
     
     public void showAll(){
@@ -71,7 +85,7 @@ public class Recommender
         }
     }
     
-    /*public void rateMovie(String movieRate, double newRating){
+    public void rateMovie(String movieRate, double newRating){
         movieRecommendations.get(movieRate).changeRating(newRating);
-    }*/
+    }
 }

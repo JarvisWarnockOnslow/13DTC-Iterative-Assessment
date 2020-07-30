@@ -18,13 +18,14 @@ public class GUI{
     /**      */
     public GUI(){
         UI.initialise();
-        UI.addButton("Quit", UI::quit);
         UI.addButton("Add", this::newMovie);
         UI.addButton("Search", this::searchMovie);
-        UI.addButton("Search Genre", this::searchGenre);
-        UI.addButton("Search Director", this::searchDirector);
+        /*UI.addButton("Search Genre", this::searchGenre);
+        UI.addButton("Search Director", this::searchDirector);*/
+        UI.addButton("Search Other", this::searchEither);
         /*UI.addButton("Rate", this::rateMovie);
         UI.addButton("Show All", this::printAll);*/
+        UI.addButton("Quit", UI::quit);
     }
     
     public void newMovie(){
@@ -52,6 +53,11 @@ public class GUI{
     public void searchDirector(){
         String search = UI.askString("Director: ");
         r.searchDirector(search);
+    }
+    
+    public void searchEither(){
+        String search = UI.askString("Director or Genre: ");
+        r.searchEither(search);
     }
     
     public void rateMovie(){

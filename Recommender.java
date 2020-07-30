@@ -46,10 +46,10 @@ public class Recommender
         String movieDirector = movieRecommendations.get(search).getDirector();
         String movieGenre = movieRecommendations.get(search).getGenre();
         double movieRating = movieRecommendations.get(search).getRating();
-        UI.println("Title: "+search);
-        UI.println("Director: "+movieDirector);
-        UI.println("Genre: "+movieGenre);
-        UI.println("Rating: "+movieRating);
+        UI.println("Title: " + search);
+        UI.println("Director: " + movieDirector);
+        UI.println("Genre: " + movieGenre);
+        UI.println("Rating: " + movieRating);
     }
     
     public void searchGenre(String search){
@@ -67,6 +67,18 @@ public class Recommender
     public void searchDirector(String search){
         for (String key : movieRecommendations.keySet()){
             if (movieRecommendations.get(key).getDirector().equals(search)){
+                UI.println("-------------------------------------");
+                UI.println("Title: " + key);
+                UI.println("Director: " + movieRecommendations.get(key).getDirector());
+                UI.println("Genre: " + movieRecommendations.get(key).getGenre());
+                UI.println("Rating: " + movieRecommendations.get(key).getRating());
+            }
+        }
+    }
+    
+    public void searchEither(String search){
+        for (String key : movieRecommendations.keySet()){
+            if (movieRecommendations.get(key).getDirector().equals(search)||movieRecommendations.get(key).getGenre().equals(search)){
                 UI.println("-------------------------------------");
                 UI.println("Title: " + key);
                 UI.println("Director: " + movieRecommendations.get(key).getDirector());

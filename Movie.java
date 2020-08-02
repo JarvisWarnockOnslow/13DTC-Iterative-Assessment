@@ -12,17 +12,19 @@ public class Movie
     private String director;
     private String genre;
     private double rating;
+    private int year;
 
     /**
      * Constructor for objects of class Movie
      */
-    public Movie(String movieName, String movieDirector, String movieGenre, double movieRating)
+    public Movie(String movieName, String movieDirector, String movieGenre, double movieRating, int movieYear)
     {
         // initialise instance variables
         this.movie = movieName;
         this.director = movieDirector;
         this.genre = movieGenre;
         this.rating = movieRating;
+        this.year = movieYear;
     }
 
     /**
@@ -63,6 +65,16 @@ public class Movie
     public double getRating()
     {
         return this.rating;
+    }
+    
+    /**
+     * A method to get the year of the movie
+     * 
+     * @return      the year of the movie
+     */
+    public int getYear()
+    {
+        return this.year;
     }
     
     public void changeRating(double newRating){

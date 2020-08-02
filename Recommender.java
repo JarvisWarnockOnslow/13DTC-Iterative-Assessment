@@ -11,7 +11,7 @@ import java.awt.Color;
 public class Recommender
 {
     // instance variables - replace the example below with your own
-    private HashMap<String, Movie> movieRecommendations;
+    private HashMap<Integer, Movie> movieRecommendations;
     private String movieName;
     private String movieDirector;
     private String movieGenre;
@@ -23,7 +23,8 @@ public class Recommender
     public Recommender()
     {
         // initialise instance variables
-        movieRecommendations = new HashMap<String, Movie>();
+        movieRecommendations = new HashMap<Integer, Movie>();
+        
     }
 
     /**
@@ -36,27 +37,28 @@ public class Recommender
      * 
      * @return      void 
      */
-    public void addMovie(String movieName, String movieDirector, String movieGenre, double movieRating)
+    public void addMovie(String movieName, String movieDirector, String movieGenre, double movieRating, int movieYear, Integer movieNumber)
     {
         // put your code here
-        movieRecommendations.put(movieName, new Movie(movieName, movieDirector, movieGenre, movieRating));
+        movieRecommendations.put(movieNumber, new Movie(movieName, movieDirector, movieGenre, movieRating, movieYear));
     }
     
     public void searchMovie(String search){
         String movieDirector = movieRecommendations.get(search).getDirector();
         String movieGenre = movieRecommendations.get(search).getGenre();
         double movieRating = movieRecommendations.get(search).getRating();
-        UI.println("Title: " + search);
+        int movieYear = movieRecommendations.get(search).getYear();
+        UI.println("Title: " + search + " (" + movieYear + ")");
         UI.println("Director: " + movieDirector);
         UI.println("Genre: " + movieGenre);
         UI.println("Rating: " + movieRating);
     }
     
     public void searchGenre(String search){
-        for (String key : movieRecommendations.keySet()){
+        for (Integer key : movieRecommendations.keySet()){
             if (movieRecommendations.get(key).getGenre().equals(search)){
                 UI.println("-------------------------------------");
-                UI.println("Title: " + key);
+                UI.println("Title: " + key + " (" + movieRecommendations.get(key).getYear() + ")");
                 UI.println("Director: " + movieRecommendations.get(key).getDirector());
                 UI.println("Genre: " + movieRecommendations.get(key).getGenre());
                 UI.println("Rating: " + movieRecommendations.get(key).getRating());
@@ -65,10 +67,10 @@ public class Recommender
     }
     
     public void searchDirector(String search){
-        for (String key : movieRecommendations.keySet()){
+        for (Integer key : movieRecommendations.keySet()){
             if (movieRecommendations.get(key).getDirector().equals(search)){
                 UI.println("-------------------------------------");
-                UI.println("Title: " + key);
+                UI.println("Title: " + key + " (" + movieRecommendations.get(key).getYear() + ")");
                 UI.println("Director: " + movieRecommendations.get(key).getDirector());
                 UI.println("Genre: " + movieRecommendations.get(key).getGenre());
                 UI.println("Rating: " + movieRecommendations.get(key).getRating());
@@ -77,10 +79,10 @@ public class Recommender
     }
     
     public void searchEither(String search){
-        for (String key : movieRecommendations.keySet()){
+        for (Integer key : movieRecommendations.keySet()){
             if (movieRecommendations.get(key).getDirector().equals(search)||movieRecommendations.get(key).getGenre().equals(search)){
                 UI.println("-------------------------------------");
-                UI.println("Title: " + key);
+                UI.println("Title: " + movieRecommendations.get(key).getName() + " (" + movieRecommendations.get(key).getYear() + ")");
                 UI.println("Director: " + movieRecommendations.get(key).getDirector());
                 UI.println("Genre: " + movieRecommendations.get(key).getGenre());
                 UI.println("Rating: " + movieRecommendations.get(key).getRating());
@@ -89,11 +91,11 @@ public class Recommender
     }
     
     public void showAll(){
-        for (String key : movieRecommendations.keySet()){
-            UI.println(key);
-            UI.println(movieRecommendations.get(key).getDirector());
-            UI.println(movieRecommendations.get(key).getGenre());
-            UI.println(movieRecommendations.get(key).getRating());
+        for (Integer key : movieRecommendations.keySet()){
+            UI.println("Title: " + movieRecommendations.get(key).getName() + " (" + movieRecommendations.get(key).getYear() + ")");
+            UI.println("Director: " + movieRecommendations.get(key).getDirector());
+            UI.println("Genre: " + movieRecommendations.get(key).getGenre());
+            UI.println("Rating: " + movieRecommendations.get(key).getRating());
         }
     }
     

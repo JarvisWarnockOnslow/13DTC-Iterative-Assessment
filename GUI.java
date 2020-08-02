@@ -15,6 +15,7 @@ import java.awt.Color;
  */
 public class GUI{
     private Recommender r = new Recommender();
+    public Integer movieNumber = 1;
     /**      */
     public GUI(){
         UI.initialise();
@@ -30,10 +31,12 @@ public class GUI{
     
     public void newMovie(){
         String movieName = UI.askString("Movie title: ");
+        int movieYear = UI.askInt("Release Year: ");
         String movieDirector = UI.askString("Director: ");
         String movieGenre = UI.askString("Genre: ");
         double movieRating = UI.askDouble("Rating: ");
-        r.addMovie(movieName, movieDirector, movieGenre, movieRating);
+        r.addMovie(movieName, movieDirector, movieGenre, movieRating, movieYear, movieNumber);
+        this.movieNumber ++;
     }
 
     public void printAll(){

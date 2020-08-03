@@ -44,21 +44,22 @@ public class Recommender
     }
     
     public void searchMovie(String search){
-        String movieDirector = movieRecommendations.get(search).getDirector();
-        String movieGenre = movieRecommendations.get(search).getGenre();
-        double movieRating = movieRecommendations.get(search).getRating();
-        int movieYear = movieRecommendations.get(search).getYear();
-        UI.println("Title: " + search + " (" + movieYear + ")");
-        UI.println("Director: " + movieDirector);
-        UI.println("Genre: " + movieGenre);
-        UI.println("Rating: " + movieRating);
+        for (Integer key : movieRecommendations.keySet()){
+            if (movieRecommendations.get(key).getName().equals(search)){
+                UI.println("-------------------------------------");
+                UI.println("Title: " + movieRecommendations.get(key).getName() + " (" + movieRecommendations.get(key).getYear() + ")");
+                UI.println("Director: " + movieRecommendations.get(key).getDirector());
+                UI.println("Genre: " + movieRecommendations.get(key).getGenre());
+                UI.println("Rating: " + movieRecommendations.get(key).getRating());
+            }
+        }
     }
     
     public void searchGenre(String search){
         for (Integer key : movieRecommendations.keySet()){
             if (movieRecommendations.get(key).getGenre().equals(search)){
                 UI.println("-------------------------------------");
-                UI.println("Title: " + key + " (" + movieRecommendations.get(key).getYear() + ")");
+                UI.println("Title: " + movieRecommendations.get(key).getName() + " (" + movieRecommendations.get(key).getYear() + ")");
                 UI.println("Director: " + movieRecommendations.get(key).getDirector());
                 UI.println("Genre: " + movieRecommendations.get(key).getGenre());
                 UI.println("Rating: " + movieRecommendations.get(key).getRating());
@@ -70,7 +71,7 @@ public class Recommender
         for (Integer key : movieRecommendations.keySet()){
             if (movieRecommendations.get(key).getDirector().equals(search)){
                 UI.println("-------------------------------------");
-                UI.println("Title: " + key + " (" + movieRecommendations.get(key).getYear() + ")");
+                UI.println("Title: " + movieRecommendations.get(key).getName() + " (" + movieRecommendations.get(key).getYear() + ")");
                 UI.println("Director: " + movieRecommendations.get(key).getDirector());
                 UI.println("Genre: " + movieRecommendations.get(key).getGenre());
                 UI.println("Rating: " + movieRecommendations.get(key).getRating());

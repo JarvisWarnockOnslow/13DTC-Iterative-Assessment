@@ -16,6 +16,7 @@ import java.awt.Color;
 public class GUI{
     private Recommender r = new Recommender();
     public Integer movieNumber = 1;
+    boolean again = true;
     /**      */
     public GUI(){
         UI.initialise();
@@ -34,8 +35,25 @@ public class GUI{
         int movieYear = UI.askInt("Release Year: ");
         String movieDirector = UI.askString("Director: ");
         String movieGenre = UI.askString("Genre: ");
-        double movieRating = UI.askDouble("Rating: ");
-        r.addMovie(movieName, movieDirector, movieGenre, movieRating, movieYear, movieNumber);
+        while (again) {
+            double movieRating = UI.askDouble("Rating: ");
+            try{
+                if(movieRating < 0 || movieRating > 10) {
+                    throw new ArithmeticException();
+                } else {
+                    r.addMovie(movieName, movieDirector, movieGenre, movieRating, movieYear, movieNumber);
+                    again = false;
+                }
+            }
+            
+            catch(ArithmeticException ae) {
+                UI.println("Please enter a number 0-10");
+            }
+            
+            catch(Exception e) {
+                UI.println("Please enter a number 0-10");
+            }
+        }
         this.movieNumber ++;
     }
 

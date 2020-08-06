@@ -16,6 +16,7 @@ public class Recommender
     private String movieDirector;
     private String movieGenre;
     private double movieRating;
+    private boolean movieExists;
 
     /**
      * Constructor for objects of class Recommender
@@ -44,6 +45,7 @@ public class Recommender
     }
     
     public void searchMovie(String search){
+        movieExists = false;
         for (Integer key : movieRecommendations.keySet()){
             if (movieRecommendations.get(key).getName().equals(search)){
                 UI.println("-------------------------------------");
@@ -51,7 +53,11 @@ public class Recommender
                 UI.println("Director: " + movieRecommendations.get(key).getDirector());
                 UI.println("Genre: " + movieRecommendations.get(key).getGenre());
                 UI.println("Rating: " + movieRecommendations.get(key).getRating());
+                movieExists = true;
             }
+        }
+        if (movieExists == false){
+            UI.println("That movie could not be found");
         }
     }
     
@@ -80,6 +86,7 @@ public class Recommender
     }
     
     public void searchEither(String search){
+        movieExists = false;
         for (Integer key : movieRecommendations.keySet()){
             if (movieRecommendations.get(key).getDirector().equals(search)||movieRecommendations.get(key).getGenre().equals(search)){
                 UI.println("-------------------------------------");
@@ -87,7 +94,11 @@ public class Recommender
                 UI.println("Director: " + movieRecommendations.get(key).getDirector());
                 UI.println("Genre: " + movieRecommendations.get(key).getGenre());
                 UI.println("Rating: " + movieRecommendations.get(key).getRating());
+                movieExists = true;
             }
+        }
+        if (movieExists == false){
+            UI.println("A movie with that director/genre could not be found");
         }
     }
     

@@ -17,6 +17,7 @@ public class GUI{
     private Recommender r = new Recommender();
     public Integer movieNumber = 1;
     boolean again = true;
+    int movieYear;
     /**      */
     public GUI(){
         UI.initialise();
@@ -25,14 +26,34 @@ public class GUI{
         /*UI.addButton("Search Genre", this::searchGenre);
         UI.addButton("Search Director", this::searchDirector);*/
         UI.addButton("Search Other", this::searchEither);
-        /*UI.addButton("Rate", this::rateMovie);
-        UI.addButton("Show All", this::printAll);*/
+        UI.addButton("Rate", this::rateMovie);
+        //UI.addButton("Show All", this::printAll);
         UI.addButton("Quit", UI::quit);
     }
     
     public void newMovie(){
         String movieName = UI.askString("Movie title: ");
-        int movieYear = UI.askInt("Release Year: ");
+        //int movieYear = UI.askInt("Release Year: ");
+        while (again) {
+            int movieYear = UI.askInt("Release Year: ");
+            try{
+                if(movieYear < 1880 || movieYear > 2030) {
+                    throw new ArithmeticException();
+                } else {
+                    this.movieYear = movieYear;
+                    again = false;
+                }
+            }
+            
+            catch(ArithmeticException ae) {
+                UI.println("Please enter a year 1880-2030");
+            }
+            
+            catch(Exception e) {
+                UI.println("Please enter a year 1880-2030");
+            }
+        }
+        again = true;
         String movieDirector = UI.askString("Director: ");
         String movieGenre = UI.askString("Genre: ");
         while (again) {
@@ -55,6 +76,7 @@ public class GUI{
             }
         }
         this.movieNumber ++;
+        again = true;
     }
 
     public void printAll(){

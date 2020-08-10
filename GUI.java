@@ -20,6 +20,7 @@ public class GUI{
     int movieYear;
     /**      */
     public GUI(){
+        // Initializes the variables and UI aspects
         UI.initialise();
         UI.addButton("Add", this::newMovie);
         UI.addButton("Search", this::searchMovie);
@@ -28,12 +29,15 @@ public class GUI{
         UI.addButton("Search Other", this::searchEither);
         UI.addButton("Rate", this::rateMovie);
         //UI.addButton("Show All", this::printAll);
+        UI.addButton("Recommend Movies", this::recommendMovie);
         UI.addButton("Quit", UI::quit);
     }
     
+    /**
+     * A method to create a new movie
+     */
     public void newMovie(){
         String movieName = UI.askString("Movie title: ");
-        //int movieYear = UI.askInt("Release Year: ");
         while (again) {
             int movieYear = UI.askInt("Release Year: ");
             try{
@@ -107,6 +111,10 @@ public class GUI{
         String movieRate = UI.askString("Movie Title: ");
         double newRating = UI.askDouble("New Rating: ");
         r.rateMovie(movieRate, newRating);
+    }
+    
+    public void recommendMovie(){
+        r.recommendMovie();
     }
 
     public static void main(String[] args){

@@ -77,6 +77,13 @@ public class Movie
         return this.year;
     }
     
+    /**
+     * A method to change the rating of a movie
+     * 
+     * @param       newRating - the new rating for the movie
+     * 
+     * @return      void
+     */
     public void changeRating(double newRating){
         this.rating = newRating;
     }

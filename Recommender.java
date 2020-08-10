@@ -17,6 +17,11 @@ public class Recommender
     private String movieGenre;
     private double movieRating;
     private boolean movieExists;
+    private static final int recommendLength = 11;
+    private String[] recommendDirector;
+    private String[] recommendGenre;
+    private int i = 0;
+    
 
     /**
      * Constructor for objects of class Recommender
@@ -25,6 +30,8 @@ public class Recommender
     {
         // initialise instance variables
         movieRecommendations = new HashMap<Integer, Movie>();
+        recommendDirector = new String[recommendLength];
+        recommendGenre = new String[recommendLength];
         
     }
 
@@ -40,26 +47,38 @@ public class Recommender
      */
     public void addMovie(String movieName, String movieDirector, String movieGenre, double movieRating, int movieYear, Integer movieNumber)
     {
-        // put your code here
+        // adds a movie to the hashmap with the variables provided form the GUI class
         movieRecommendations.put(movieNumber, new Movie(movieName, movieDirector, movieGenre, movieRating, movieYear));
     }
     
+    /**
+     * A method to search for a movie in the hashmap
+     * 
+     * @param       search - the name of the movie that the user ants to search for
+     * 
+     * @return      void
+     */
     public void searchMovie(String search){
+        //A vaiable to check if there is at least one movie that exists with the name searched for
         movieExists = false;
-        for (Integer key : movieRecommendations.keySet()){
-            if (movieRecommendations.get(key).getName().equals(search)){
+        for (Integer key : movieRecommendations.keySet()){      // Loops through the hashmap
+            if (movieRecommendations.get(key).getName().equals(search)){        // Checks if the movie has the same name as the one searched for
+                // Prints out the details about the movie if it matches the search
                 UI.println("-------------------------------------");
                 UI.println("Title: " + movieRecommendations.get(key).getName() + " (" + movieRecommendations.get(key).getYear() + ")");
                 UI.println("Director: " + movieRecommendations.get(key).getDirector());
                 UI.println("Genre: " + movieRecommendations.get(key).getGenre());
                 UI.println("Rating: " + movieRecommendations.get(key).getRating());
+                // Sets it to true because at least one movie with that name exists
                 movieExists = true;
             }
         }
         if (movieExists == false){
+            // If no movie with the name searched exists return the error
             UI.println("That movie could not be found");
         }
     }
+    
     
     public void searchGenre(String search){
         for (Integer key : movieRecommendations.keySet()){
@@ -73,6 +92,7 @@ public class Recommender
         }
     }
     
+    
     public void searchDirector(String search){
         for (Integer key : movieRecommendations.keySet()){
             if (movieRecommendations.get(key).getDirector().equals(search)){
@@ -84,6 +104,7 @@ public class Recommender
             }
         }
     }
+    
     
     public void searchEither(String search){
         movieExists = false;
@@ -102,6 +123,13 @@ public class Recommender
         }
     }
     
+    /**
+     * A method to print all of the movies in the hashmap
+     * 
+     * @param       none
+     * 
+     * @return      void
+     */
     public void showAll(){
         for (Integer key : movieRecommendations.keySet()){
             UI.println("Title: " + movieRecommendations.get(key).getName() + " (" + movieRecommendations.get(key).getYear() + ")");
@@ -111,7 +139,45 @@ public class Recommender
         }
     }
     
+    /**
+     * A method to rate/change the rating of a movie
+     * 
+     * @param       movieRate - the movie that is being rated
+     * @param       newRating - the new rating for the movie
+     * 
+     * @return      void
+     */
     public void rateMovie(String movieRate, double newRating){
         movieRecommendations.get(movieRate).changeRating(newRating);
+    }
+    
+    /**
+     * A method to recommend movies based on previous ratings
+     * 
+     * 
+     * 
+     * @return      void
+     */
+    public void recommendMovie(){
+        // Adds the directors of highly rated movies to an array
+        for (Integer key : movieRecommendations.keySet()){
+            if (movieRecommendations.get(key).getRating() > 6){     // Checks if the movies rating is greater than 6
+                if (!Arrays.asList(recommendDirector).contains(movieRecommendations.get(key).getDirector())){       // Learnt on w3 schools
+                    recommendDirector[i] = movieRecommendations.get(key).getDirector();
+                }   
+                if (i <= 10){
+                    i++;
+                }
+            }
+        }
+        // Prints out movies that have the same director as highly rated movies
+        UI.println("Movies that you may like: ");
+        for (String movie : recommendDirector){
+            for (Integer key : movieRecommendations.keySet()){
+                if (movieRecommendations.get(key).getDirector().equals(movie)){
+                    UI.println(movieRecommendations.get(key).getName() + " " + movieRecommendations.get(key).getYear());
+                }
+            }
+        }
     }
 }

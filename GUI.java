@@ -29,7 +29,7 @@ public class GUI{
         UI.addButton("Search Director", this::searchDirector);*/
         UI.addButton("Search Other", this::searchEither);
         UI.addButton("Rate", this::rateMovie);
-        //UI.addButton("Show All", this::printAll);
+        UI.addButton("Show All", this::printAll);
         UI.addButton("Recommend Movies", this::recommendMovie);
         UI.addButton("Quit", UI::quit);
     }
@@ -91,8 +91,8 @@ public class GUI{
     
     public void rateMovie(){
         // Loop to check if the entered movie exists
+        movieRate = UI.askString("Movie Title: ");
         while (again) {
-            movieRate = UI.askString("Movie Title: ");
             // Checks if the movie exists
             if (r.movieExists(movieRate) == false){
                 UI.println("That movie does not exist");
@@ -101,7 +101,7 @@ public class GUI{
                 again = false;
             }
         }
-        
+        again = true;
         // Loop to check if the rating is 0-10
         while (again) {
             double Rating = UI.askDouble("Rating: ");

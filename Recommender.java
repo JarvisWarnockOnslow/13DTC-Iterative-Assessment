@@ -6,7 +6,7 @@ import java.awt.Color;
  * The class that contains all of the main methods for the program such as adding as movie
  * 
  * @author Jarvis Warnock
- * @version 2
+ * @version 3
  */
 public class Recommender
 {
@@ -139,6 +139,7 @@ public class Recommender
      */
     public void showAll(){
         for (Integer key : movieRecommendations.keySet()){
+            UI.println("-------------------------------------");
             UI.println("Title: " + movieRecommendations.get(key).getName() + " (" + movieRecommendations.get(key).getYear() + ")");
             UI.println("Director: " + movieRecommendations.get(key).getDirector());
             UI.println("Genre: " + movieRecommendations.get(key).getGenre());
@@ -157,7 +158,6 @@ public class Recommender
      * @return      void
      */
     public void rateMovie(String movieRate, double Rating){
-        movieExists = false;
         for (Integer key : movieRecommendations.keySet()){
             if (movieRecommendations.get(key).getName().equals(movieRate)){
                 movieRecommendations.get(key).changeRating(Rating);
@@ -166,11 +166,10 @@ public class Recommender
     }
     
     public boolean movieExists(String movieName){
+        movieExists = false;
         for (Integer key : movieRecommendations.keySet()){
             if (movieRecommendations.get(key).getName().equals(movieName)){
                 movieExists = true;
-            } else {
-                movieExists = false;
             }
         }
         return (movieExists);
@@ -190,6 +189,9 @@ public class Recommender
                 if (!Arrays.asList(recommendDirector).contains(movieRecommendations.get(key).getDirector())){       // Learnt on w3 schools
                     recommendDirector[i] = movieRecommendations.get(key).getDirector();
                 }   
+                if (!Arrays.asList(recommendGenre).contains(movieRecommendations.get(key).getGenre())){       // Learnt on w3 schools
+                    recommendGenre[i] = movieRecommendations.get(key).getGenre();
+                }
                 if (i <= 10){
                     i++;
                 }
@@ -200,6 +202,13 @@ public class Recommender
         for (String director : recommendDirector){
             for (Integer key : movieRecommendations.keySet()){
                 if (movieRecommendations.get(key).getDirector().equals(director) && movieRecommendations.get(key).getRating() == -1){
+                    UI.println(movieRecommendations.get(key).getName() + " (" + movieRecommendations.get(key).getYear() + ")");
+                }
+            }
+        }
+        for (String genre : recommendGenre){
+            for (Integer key : movieRecommendations.keySet()){
+                if (movieRecommendations.get(key).getGenre().equals(genre) && movieRecommendations.get(key).getRating() == -1){
                     UI.println(movieRecommendations.get(key).getName() + " (" + movieRecommendations.get(key).getYear() + ")");
                 }
             }

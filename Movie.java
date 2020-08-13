@@ -17,13 +17,13 @@ public class Movie
     /**
      * Constructor for objects of class Movie
      */
-    public Movie(String movieName, String movieDirector, String movieGenre, double movieRating, int movieYear)
+    public Movie(String movieName, String movieDirector, String movieGenre, /*double movieRating,*/ int movieYear)
     {
         // initialise instance variables
         this.movie = movieName;
         this.director = movieDirector;
         this.genre = movieGenre;
-        this.rating = movieRating;
+        this.rating = -1;   // Sets to -1 to show it has no rating (added by the user later)
         this.year = movieYear;
     }
 
@@ -84,7 +84,7 @@ public class Movie
      * 
      * @return      void
      */
-    public void changeRating(double newRating){
-        this.rating = newRating;
+    public void changeRating(double Rating){
+        this.rating = Rating;
     }
 }

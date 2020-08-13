@@ -18,6 +18,7 @@ public class GUI{
     public Integer movieNumber = 1;
     boolean again = true;
     int movieYear;
+    String movieRate;
     /**      */
     public GUI(){
         // Initializes the variables and UI aspects
@@ -60,27 +61,8 @@ public class GUI{
         again = true;
         String movieDirector = UI.askString("Director: ");
         String movieGenre = UI.askString("Genre: ");
-        while (again) {
-            double movieRating = UI.askDouble("Rating: ");
-            try{
-                if(movieRating < 0 || movieRating > 10) {
-                    throw new ArithmeticException();
-                } else {
-                    r.addMovie(movieName, movieDirector, movieGenre, movieRating, movieYear, movieNumber);
-                    again = false;
-                }
-            }
-            
-            catch(ArithmeticException ae) {
-                UI.println("Please enter a number 0-10");
-            }
-            
-            catch(Exception e) {
-                UI.println("Please enter a number 0-10");
-            }
-        }
+        r.addMovie(movieName, movieDirector, movieGenre, movieYear, movieNumber);
         this.movieNumber ++;
-        again = true;
     }
 
     public void printAll(){
@@ -108,9 +90,39 @@ public class GUI{
     }
     
     public void rateMovie(){
-        String movieRate = UI.askString("Movie Title: ");
-        double newRating = UI.askDouble("New Rating: ");
-        r.rateMovie(movieRate, newRating);
+        // Loop to check if the entered movie exists
+        while (again) {
+            movieRate = UI.askString("Movie Title: ");
+            // Checks if the movie exists
+            if (r.movieExists(movieRate) == false){
+                UI.println("That movie does not exist");
+                movieRate = UI.askString("Movie Title: ");
+            } else {
+                again = false;
+            }
+        }
+        
+        // Loop to check if the rating is 0-10
+        while (again) {
+            double Rating = UI.askDouble("Rating: ");
+            try{
+                if(Rating < 0 || Rating > 10) {
+                    throw new ArithmeticException();
+                } else {
+                    r.rateMovie(movieRate, Rating);
+                    again = false;
+                }
+            }
+            
+            catch(ArithmeticException ae) {
+                UI.println("Please enter a number 0-10");
+            }
+            
+            catch(Exception e) {
+                UI.println("Please enter a number 0-10");
+            }
+        }
+        again = true;
     }
     
     public void recommendMovie(){

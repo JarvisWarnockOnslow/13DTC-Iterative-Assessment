@@ -23,11 +23,9 @@ public class GUI{
     public GUI(){
         // Initializes the variables and UI aspects
         UI.initialise();
+        //UI.addTextField("Search Title", this::searchMovie);
+        UI.addTextField("Search Title/Director/Genre", this::searchEither);
         UI.addButton("Add", this::newMovie);
-        UI.addButton("Search", this::searchMovie);
-        /*UI.addButton("Search Genre", this::searchGenre);
-        UI.addButton("Search Director", this::searchDirector);*/
-        UI.addButton("Search Other", this::searchEither);
         UI.addButton("Rate", this::rateMovie);
         UI.addButton("Show All", this::printAll);
         UI.addButton("Recommend Movies", this::recommendMovie);
@@ -39,6 +37,7 @@ public class GUI{
      */
     public void newMovie(){
         String movieName = UI.askString("Movie title: ");
+        movieName = movieName.toLowerCase();        // Converts the title to lower case (Learnt on w3 Schools)
         while (again) {
             int movieYear = UI.askInt("Release Year: ");
             try{
@@ -60,38 +59,61 @@ public class GUI{
         }
         again = true;
         String movieDirector = UI.askString("Director: ");
+        movieDirector = movieDirector.toLowerCase();        // Converts the director to lower case (Learnt on w3 Schools)
         String movieGenre = UI.askString("Genre: ");
+        movieGenre = movieGenre.toLowerCase();              // Converts the genre to lower case (Learnt on w3 Schools)
         r.addMovie(movieName, movieDirector, movieGenre, movieYear, movieNumber);
         this.movieNumber ++;
     }
-
+    
+    /**
+     * Calls the method to show all the movies
+     */
     public void printAll(){
         r.showAll();
     }
     
-    public void searchMovie(){
-       String search = UI.askString("Movie Title: ");
+    /**
+     * Calls the method to search for a movie
+     */
+    public void searchMovie(String search){
+       //String search = UI.askString("Movie Title: ");
+       search = search.toLowerCase();       // Converts the search to lower case
        r.searchMovie(search);
     }
     
-    public void searchGenre(){
+    /**
+     * Calls the method to search for the movies in a genre (OLD)
+     */
+    /*public void searchGenre(){
         String search = UI.askString("Genre: ");
         r.searchGenre(search);
-    }
+    }*/
     
-    public void searchDirector(){
+    /**
+     * Calls the method to search for the movies by a director (OLD)
+     */
+    /*public void searchDirector(){
         String search = UI.askString("Director: ");
         r.searchDirector(search);
-    }
+    }*/
     
-    public void searchEither(){
-        String search = UI.askString("Director or Genre: ");
+    /**
+     * Calls the method to search for either the movies by a director or in a genre
+     */
+    public void searchEither(String search){
+        //String search = UI.askString("Director or Genre: ");
+        search = search.toLowerCase();
         r.searchEither(search);
     }
     
+    /**
+     * Calls the method to rate a movie
+     */
     public void rateMovie(){
         // Loop to check if the entered movie exists
         movieRate = UI.askString("Movie Title: ");
+        movieRate = movieRate.toLowerCase();
         while (again) {
             // Checks if the movie exists
             if (r.movieExists(movieRate) == false){
@@ -125,6 +147,9 @@ public class GUI{
         again = true;
     }
     
+    /**
+     * Calls the method to recommend movies
+     */
     public void recommendMovie(){
         r.recommendMovie();
     }

@@ -13,6 +13,7 @@ public class Movie
     private String genre;
     private double rating;
     private int year;
+    private boolean printed;
 
     /**
      * Constructor for objects of class Movie
@@ -84,7 +85,29 @@ public class Movie
      * 
      * @return      void
      */
-    public void changeRating(double Rating){
-        this.rating = Rating;
+    public void changeRating(double rating){
+        this.rating = rating;
+    }
+    
+    /**
+     * A method to change printed to true or false
+     * 
+     * @ param      printed - the new value for printed
+     * 
+     * @ return     void
+     */
+    public void changePrinted(boolean printed){
+        this.printed = printed;
+    }
+    
+    /**
+     * A method to check the value of printed
+     * 
+     * @ param      none
+     * 
+     * @ return     printed (if the movie has been printed or not)
+     */
+    public boolean getPrinted(){
+        return this.printed;
     }
 }

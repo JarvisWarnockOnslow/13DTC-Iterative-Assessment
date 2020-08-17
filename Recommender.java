@@ -49,6 +49,7 @@ public class Recommender
     {
         // adds a movie to the hashmap with the variables provided form the GUI class
         movieRecommendations.put(movieNumber, new Movie(movieName, movieDirector, movieGenre, movieYear));
+        UI.println("Movie Added");
     }
     
     /**
@@ -80,7 +81,13 @@ public class Recommender
         }
     }
     
-    
+    /**
+     * An old method to search just for the movies in a genre
+     * 
+     * @ param      search - the genre to show the movies from
+     * 
+     * @ return void
+     */
     public void searchGenre(String search){
         for (Integer key : movieRecommendations.keySet()){
             if (movieRecommendations.get(key).getGenre().equals(search)){
@@ -95,7 +102,13 @@ public class Recommender
         }
     }
     
-    
+    /**
+     * An old method to search just for the movies by a specific director
+     * 
+     * @ param      search - the director to show the movies from
+     * 
+     * @ return     void  
+     */
     public void searchDirector(String search){
         for (Integer key : movieRecommendations.keySet()){
             if (movieRecommendations.get(key).getDirector().equals(search)){
@@ -110,11 +123,17 @@ public class Recommender
         }
     }
     
-    
+    /**
+     * A method to search for either a director or genre
+     * 
+     * @ param      search - The director or genre to search for
+     * 
+     * @ return     void
+     */
     public void searchEither(String search){
         movieExists = false;
         for (Integer key : movieRecommendations.keySet()){
-            if (movieRecommendations.get(key).getDirector().equals(search)||movieRecommendations.get(key).getGenre().equals(search)){
+            if (movieRecommendations.get(key).getDirector().equals(search)||movieRecommendations.get(key).getGenre().equals(search) ||movieRecommendations.get(key).getName().equals(search)){
                 UI.println("-------------------------------------");
                 UI.println("Title: " + movieRecommendations.get(key).getName() + " (" + movieRecommendations.get(key).getYear() + ")");
                 UI.println("Director: " + movieRecommendations.get(key).getDirector());
@@ -165,6 +184,13 @@ public class Recommender
         }
     }
     
+    /**
+     * A method to check if a movie exists (for the search and rating methods)
+     * 
+     * @ param      movieName - the name of the movie to check for
+     * 
+     * @ return     if the movie exists or not
+     */
     public boolean movieExists(String movieName){
         movieExists = false;
         for (Integer key : movieRecommendations.keySet()){
@@ -177,21 +203,23 @@ public class Recommender
     
     /**
      * A method to recommend movies based on previous ratings
+     * Recommends movies that have not been rated by the same director or in the same genre as ones you have rated highly 
      * 
+     * @ param       none
      * 
-     * 
-     * @return      void
+     * @ return      void
      */
     public void recommendMovie(){
-        // Adds the directors of highly rated movies to an array
+        // Adds the directors and genres of highly rated movies to an array
         for (Integer key : movieRecommendations.keySet()){
             if (movieRecommendations.get(key).getRating() > 6){     // Checks if the movies rating is greater than 6
                 if (!Arrays.asList(recommendDirector).contains(movieRecommendations.get(key).getDirector())){       // Learnt on w3 schools
                     recommendDirector[i] = movieRecommendations.get(key).getDirector();
-                }   
+                }
                 if (!Arrays.asList(recommendGenre).contains(movieRecommendations.get(key).getGenre())){       // Learnt on w3 schools
                     recommendGenre[i] = movieRecommendations.get(key).getGenre();
                 }
+                // Stops after 10 else there may be too many movies recommended
                 if (i <= 10){
                     i++;
                 }
@@ -203,13 +231,15 @@ public class Recommender
             for (Integer key : movieRecommendations.keySet()){
                 if (movieRecommendations.get(key).getDirector().equals(director) && movieRecommendations.get(key).getRating() == -1){
                     UI.println(movieRecommendations.get(key).getName() + " (" + movieRecommendations.get(key).getYear() + ")");
+                    movieRecommendations.get(key).changePrinted(true);
                 }
             }
         }
         for (String genre : recommendGenre){
             for (Integer key : movieRecommendations.keySet()){
-                if (movieRecommendations.get(key).getGenre().equals(genre) && movieRecommendations.get(key).getRating() == -1){
+                if (movieRecommendations.get(key).getGenre().equals(genre) && movieRecommendations.get(key).getRating() == -1 && movieRecommendations.get(key).getPrinted() == false){
                     UI.println(movieRecommendations.get(key).getName() + " (" + movieRecommendations.get(key).getYear() + ")");
+                    movieRecommendations.get(key).changePrinted(false);
                 }
             }
         }

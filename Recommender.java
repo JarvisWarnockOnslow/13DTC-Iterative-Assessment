@@ -17,7 +17,7 @@ public class Recommender
     private String movieGenre;
     private double movieRating;
     private boolean movieExists;
-    private static final int recommendLength = 11;
+    private static final int recommendLength = 10;
     private String[] recommendDirector;
     private String[] recommendGenre;
     private int i = 0;
@@ -145,7 +145,7 @@ public class Recommender
             }
         }
         if (movieExists == false){
-            UI.println("A movie with that director/genre could not be found");
+            UI.println("A movie with that title/director/genre could not be found");
         }
     }
     
@@ -180,6 +180,7 @@ public class Recommender
         for (Integer key : movieRecommendations.keySet()){
             if (movieRecommendations.get(key).getName().equals(movieRate)){
                 movieRecommendations.get(key).changeRating(Rating);
+                UI.println("Movie Rated");
             }
         }
     }
@@ -225,13 +226,18 @@ public class Recommender
                 }
             }
         }
-        // Prints out movies that have the same director as highly rated movies
-        UI.println("Movies that you may like: ");
+        // Checks if the lists are empty (to tell the user that there are none to recommend)
+        if (recommendDirector[0] == null && recommendGenre[0] == null){
+            UI.println("There are no movies to recommend (Try add some more)");
+        } else {
+            UI.println("Movies that you may like: ");
+        }
+        // Prints out all of the movies in the list
         for (String director : recommendDirector){
             for (Integer key : movieRecommendations.keySet()){
                 if (movieRecommendations.get(key).getDirector().equals(director) && movieRecommendations.get(key).getRating() == -1){
                     UI.println(movieRecommendations.get(key).getName() + " (" + movieRecommendations.get(key).getYear() + ")");
-                    movieRecommendations.get(key).changePrinted(true);
+                    movieRecommendations.get(key).changePrinted(true);      // Sets the printed to true so it doesnt print again if the movie has the same genre and director as a high rated one
                 }
             }
         }
@@ -243,5 +249,8 @@ public class Recommender
                 }
             }
         }
+        // Empties the arrays after the recommended movies have been printed
+        Arrays.fill(recommendDirector, null);
+        Arrays.fill(recommendGenre, null);
     }
 }

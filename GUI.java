@@ -25,9 +25,9 @@ public class GUI{
         UI.initialise();
         //UI.addTextField("Search Title", this::searchMovie);
         UI.addTextField("Search Title/Director/Genre", this::searchEither);
-        UI.addButton("Add", this::newMovie);
-        UI.addButton("Rate", this::rateMovie);
-        UI.addButton("Show All", this::printAll);
+        UI.addButton("Add Movie", this::newMovie);
+        UI.addButton("Rate Movie", this::rateMovie);
+        UI.addButton("Show All Movies", this::printAll);
         UI.addButton("Recommend Movies", this::recommendMovie);
         UI.addButton("Quit", UI::quit);
     }

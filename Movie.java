@@ -18,7 +18,7 @@ public class Movie
     /**
      * Constructor for objects of class Movie
      */
-    public Movie(String movieName, String movieDirector, String movieGenre, /*double movieRating,*/ int movieYear)
+    public Movie(String movieName, String movieDirector, String movieGenre, int movieYear)
     {
         // initialise instance variables
         this.movie = movieName;

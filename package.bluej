@@ -1,9 +1,9 @@
 #BlueJ package file
-dependency1.from=Recommender
-dependency1.to=Movie
+dependency1.from=GUI
+dependency1.to=Recommender
 dependency1.type=UsesDependency
-dependency2.from=GUI
-dependency2.to=Recommender
+dependency2.from=Recommender
+dependency2.to=Movie
 dependency2.type=UsesDependency
 editor.fx.0.height=1056
 editor.fx.0.width=1936

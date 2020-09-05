@@ -16,32 +16,55 @@ import java.awt.Color;
 public class GUI{
     private Recommender r = new Recommender();
     public Integer movieNumber = 1;
-    boolean again = true;
-    int movieYear;
-    String movieRate;
+    private boolean again = true;
+    private int movieYear;
+    private String movieRate;
+    private String movieName;
+    private String movieDirector;
+    private String movieGenre;
+    private int CANVASWIDTH = 1000;
+    private int CANVASHEIGHT = 750;
     /**      */
     public GUI(){
         // Initializes the variables and UI aspects
         UI.initialise();
-        //UI.addTextField("Search Title", this::searchMovie);
         UI.addTextField("Search Title/Director/Genre", this::searchEither);
         UI.addButton("Add Movie", this::newMovie);
         UI.addButton("Rate Movie", this::rateMovie);
         UI.addButton("Show All Movies", this::printAll);
         UI.addButton("Recommend Movies", this::recommendMovie);
         UI.addButton("Quit", UI::quit);
+        // Sets the size of the whole window and the divider
+        UI.setWindowSize(CANVASWIDTH, CANVASHEIGHT);
+        UI.setDivider(0.4);
+        // Draws the title of the program
+        UI.fillRect(55, 7, 485, 50);
+        UI.setColor(Color.white);
+        UI.setFontSize(50);
+        UI.drawString("Movie Recommender", 60, 50);
     }
     
     /**
      * A method to create a new movie
      */
     public void newMovie(){
-        String movieName = UI.askString("Movie title: ");
-        movieName = movieName.toLowerCase();        // Converts the title to lower case (Learnt on w3 Schools)
+        while (again) {
+            String movieName = UI.askString("Movie title: ");
+            if (movieName.length() == 0){
+                UI.println("Please enter a movie name");
+            } else{
+                movieName = movieName.toLowerCase();        // Converts the title to lower case (Learnt on w3 Schools)
+                this.movieName = movieName;
+                again = false;
+            }
+        }
+        again = true;
         while (again) {
             int movieYear = UI.askInt("Release Year: ");
             try{
                 if(movieYear < 1880 || movieYear > 2030) {
+                    throw new ArithmeticException();
+                } else if (movieYear == 0){
                     throw new ArithmeticException();
                 } else {
                     this.movieYear = movieYear;
@@ -58,10 +81,28 @@ public class GUI{
             }
         }
         again = true;
-        String movieDirector = UI.askString("Director: ");
-        movieDirector = movieDirector.toLowerCase();        // Converts the director to lower case (Learnt on w3 Schools)
-        String movieGenre = UI.askString("Genre: ");
-        movieGenre = movieGenre.toLowerCase();              // Converts the genre to lower case (Learnt on w3 Schools)
+        while (again){
+            String movieDirector = UI.askString("Director: ");
+            if (movieDirector.length() == 0){
+                UI.println("Please enter a director");
+            } else{
+                movieDirector = movieDirector.toLowerCase();        // Converts the director to lower case (Learnt on w3 Schools)
+                this.movieDirector = movieDirector;
+                again = false;
+            }
+        }
+        again = true;
+        while (again){
+            String movieGenre = UI.askString("Genre: ");
+            if (movieGenre.length() == 0){
+                UI.println("Please enter a genre");
+            } else{
+                movieGenre = movieGenre.toLowerCase();              // Converts the genre to lower case (Learnt on w3 Schools)
+                this.movieGenre = movieGenre;
+                again = false;
+            }
+        }
+        again = true;
         r.addMovie(movieName, movieDirector, movieGenre, movieYear, movieNumber);
         this.movieNumber ++;
     }

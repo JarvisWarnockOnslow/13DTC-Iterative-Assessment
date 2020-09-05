@@ -212,6 +212,7 @@ public class Recommender
      */
     public void recommendMovie(){
         // Adds the directors and genres of highly rated movies to an array
+        int printed = 0;
         for (Integer key : movieRecommendations.keySet()){
             if (movieRecommendations.get(key).getRating() > 6){     // Checks if the movies rating is greater than 6
                 if (!Arrays.asList(recommendDirector).contains(movieRecommendations.get(key).getDirector())){       // Learnt on w3 schools
@@ -226,18 +227,14 @@ public class Recommender
                 }
             }
         }
-        // Checks if the lists are empty (to tell the user that there are none to recommend)
-        if (recommendDirector[0] == null && recommendGenre[0] == null){
-            UI.println("There are no movies to recommend (Try add some more)");
-        } else {
-            UI.println("Movies that you may like: ");
-        }
+        UI.println("Movies that you may like: ");
         // Prints out all of the movies in the list
         for (String director : recommendDirector){
             for (Integer key : movieRecommendations.keySet()){
                 if (movieRecommendations.get(key).getDirector().equals(director) && movieRecommendations.get(key).getRating() == -1){
                     UI.println(movieRecommendations.get(key).getName() + " (" + movieRecommendations.get(key).getYear() + ")");
                     movieRecommendations.get(key).changePrinted(true);      // Sets the printed to true so it doesnt print again if the movie has the same genre and director as a high rated one
+                    printed++;
                 }
             }
         }
@@ -246,8 +243,14 @@ public class Recommender
                 if (movieRecommendations.get(key).getGenre().equals(genre) && movieRecommendations.get(key).getRating() == -1 && movieRecommendations.get(key).getPrinted() == false){
                     UI.println(movieRecommendations.get(key).getName() + " (" + movieRecommendations.get(key).getYear() + ")");
                     movieRecommendations.get(key).changePrinted(false);
+                    printed++;
                 }
             }
+        }
+        
+        // If no movies are printed then thell the user to add more
+        if (printed == 0){
+            UI.println("There are no movies to recommend (Try add some more)");
         }
         // Empties the arrays after the recommended movies have been printed
         Arrays.fill(recommendDirector, null);

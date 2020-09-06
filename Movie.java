@@ -10,7 +10,7 @@ import java.awt.Color;
  */
 public class Movie
 {
-    // instance variables - replace the example below with your own
+    // instance variables
     private String movie;
     private String director;
     private String genre;
@@ -19,6 +19,7 @@ public class Movie
     private boolean printed;
     private String ratingString;
     
+    // Sets all of the different positions for the GUI
     private static final int ORIGINALY = 105;
     private static final int STARTX = 105;
     private int startY = ORIGINALY;
@@ -106,6 +107,8 @@ public class Movie
     public void changeRating(double newRating)
     {
         this.rating = newRating;
+        // Adds the double as a string to a different variable
+        // to be drawn on the GUI
         this.ratingString = String.valueOf(rating);        
     }
     
@@ -120,7 +123,7 @@ public class Movie
     }
     
     /**
-     * A method to check the value of printed
+     * A method to check if the movie has been printed
      * 
      * @return     printed (if the movie has been printed or not)
      */
@@ -131,11 +134,13 @@ public class Movie
     
     /**
      * A method to draw the information when searched for
+     * or recommended
      * 
      * @param   searchNumber - the number down the list the movie is displayed
      */
     public void drawSearched(int searchNumber)
     {
+        // Sets the position depending on what number it is in the list
         this.startY = this.ORIGINALY + ((searchNumber + 1) * 70);
         UI.setColor(Color.black);
         UI.fillRect(this.STARTX, this.startY, this.WIDTH, this.HEIGHT);
@@ -157,23 +162,24 @@ public class Movie
         UI.clearGraphics();
         GUI.drawMain();
         UI.drawImage("images/movie-placeholder.png", 
-                     this.STARTX, this.startY - 100, SIZE, SIZE + 85);
+                     this.STARTX, this.startY - 100, this.SIZE, this.SIZE + 85);
         UI.setColor(Color.black);
         UI.setFontSize(30);
-        UI.drawString(this.movie + " (" + year + ")", 
+        UI.drawString(this.movie + " (" + this.year + ")", 
                       this.STARTX + 15, this.startY + 375);
         UI.drawString("Director: " + this.director, 
                       this.STARTX + 15, this.startY + 425);
         UI.drawString("Genre: " + this.genre, 
                       this.STARTX + 15, this.startY + 475);
-        // Changes the colour around the rating depending on what it is
+        // Checks if the movie has been rated
         if (rating != -1)
         {
+            // Changes the colour around the rating depending how high it is
             if (rating >= 7)
             {
                 UI.setColor(Color.green);
             } 
-            else if (rating > 3 && rating < 7)
+            else if (rating >= 4 && rating < 7)
             {
                 UI.setColor(Color.orange);
             } 
@@ -193,6 +199,7 @@ public class Movie
             UI.drawString("Movie not yet rated", this.STARTX + 15, 
                           this.startY + 525);
         }
+        this.startY = 0;
     }
     
     /**

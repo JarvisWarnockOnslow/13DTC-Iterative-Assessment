@@ -20,6 +20,8 @@ public class Recommender
     private String[] recommendGenre;
     private String[] searchResults;
     private int i = 0;
+    
+    // Sets the position of the GUI elements
     private static final int STARTX = 150;
     private static final int STARTY = 125;
     
@@ -64,13 +66,15 @@ public class Recommender
      */
     public void searchEither(String search)
     {
-        i = 0;
+        int j = 0;
+        // Clears the screen and redraws the title
         UI.clearGraphics();
         GUI.drawMain();
+        UI.setColor(Color.black);
+        UI.setFontSize(35);
         if (movieExists(search) == true)
         {
-            UI.setColor(Color.black);
-            UI.setFontSize(35);
+            // Draws the search results text
             UI.drawString("Search Results:", this.STARTX, this.STARTY);
             for (Integer key : movieRecommendations.keySet())
             {
@@ -92,23 +96,26 @@ public class Recommender
                         UI.println("Rating: " + 
                                    movieRecommendations.get(key).getRating());
                     }
-                    searchResults[i] = movieRecommendations.get(key).getName()
+                    searchResults[j] = movieRecommendations.get(key).getName()
                                        + " (" 
                                        + movieRecommendations.get(key).getYear()
                                        + ")";
-                    movieRecommendations.get(key).drawSearched(i);
-                    if (i <= 8)
+                    movieRecommendations.get(key).drawSearched(j);
+                    if (j <= 8)
                     {
-                        i++;
+                        j++;
                     }
                 }
             }
         } 
         else 
         {
-            UI.println("A movie with that" 
+            UI.println("A movie with that " 
                       + "name/director/genre could not be found");
+            UI.drawString("That search could not be found", 
+                      this.STARTX - 90, this.STARTY);
         }
+        // Clears the searchResult list
         Arrays.fill(searchResults, null);
     }
     
@@ -120,15 +127,21 @@ public class Recommender
         for (Integer key : movieRecommendations.keySet())
         {
             UI.println("-------------------------------------");
+            // Prints the title and year together
             UI.println("Title: " + movieRecommendations.get(key).getName() 
                        + " (" + movieRecommendations.get(key).getYear() + ")");
             UI.println("Director: " + 
                        movieRecommendations.get(key).getDirector());
             UI.println("Genre: " + movieRecommendations.get(key).getGenre());
+            // Prints the rating only if the user has rated it
             if (movieRecommendations.get(key).getRating() != -1)
             {
                 UI.println("Rating: " + 
                            movieRecommendations.get(key).getRating());
+            }
+            else
+            {
+                UI.println("Movie has not yet been rated");
             }
         }
     }
@@ -206,8 +219,8 @@ public class Recommender
                     recommendGenre[i] = movieRecommendations.get(key)
                                         .getGenre();
                 }
-                // Stops after 10 else there may be too many movies recommended
-                if (i <= 8)
+                // Stops after 8 else there may be too many movies recommended
+                if (i <= 7)
                 {
                     i++;
                 }
@@ -217,14 +230,14 @@ public class Recommender
         UI.setColor(Color.black);
         UI.setFontSize(35);
         UI.drawString("Movies You May Like:", this.STARTX, this.STARTY);
-        //UI.println("Movies that you may like: ");
         // Prints out all of the movies in the list
         for (String director : recommendDirector)
         {
             for (Integer key : movieRecommendations.keySet())
             {
                 if (movieRecommendations.get(key).getDirector().equals(director)
-                    && movieRecommendations.get(key).getRating() == -1)
+                    && movieRecommendations.get(key).getRating() == -1
+                    && printed <= 7)
                 {
                     movieRecommendations.get(key).drawSearched(printed);
                     // Makes sure the same movie is not in both lists
@@ -239,7 +252,8 @@ public class Recommender
             {
                 if (movieRecommendations.get(key).getGenre().equals(genre) && 
                     movieRecommendations.get(key).getRating() == -1 && 
-                    movieRecommendations.get(key).getPrinted() == false)
+                    movieRecommendations.get(key).getPrinted() == false
+                    && printed <= 7)
                 {
                     movieRecommendations.get(key).drawSearched(printed);
                     movieRecommendations.get(key).changePrinted(false);

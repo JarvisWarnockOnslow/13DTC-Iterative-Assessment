@@ -16,11 +16,15 @@ public class GUI
      */
     public Integer movieNumber = 1;
     private boolean again = true;
+    
+    // Declare variables used later so they can be used outside of a loop
     private int movieYear;
     private String movieRate;
     private String movieName;
     private String movieDirector;
     private String movieGenre;
+    
+    // Constants to set the width and height of the GUI
     private static final int CANVASWIDTH = 1000;
     private static final int CANVASHEIGHT = 750;
     /**
@@ -28,19 +32,20 @@ public class GUI
      */
     public GUI()
     {
-        // //Initializes the variables and UI aspects
-        // UI.initialise();
-        // UI.addTextField("Search Title/Director/Genre", this::searchEither);
-        // UI.addButton("Add Movie", this::newMovie);
-        // UI.addButton("Rate Movie", this::rateMovie);
-        // UI.addButton("Show All Movies", this::printAll);
-        // UI.addButton("Recommend Movies", this::recommendMovie);
-        // UI.setMouseListener(r::manageMouse);
-        // UI.addButton("Quit", UI::quit);
-        // // Sets the size of the whole window and the divider
-        // UI.setWindowSize(CANVASWIDTH, CANVASHEIGHT);
-        // UI.setDivider(0.4);
-        // this.drawMain();
+        //Initializes the variables and UI aspects
+        UI.initialise();
+        UI.addTextField("Search Title/Director/Genre", this::searchEither);
+        UI.addButton("Add Movie", this::newMovie);
+        UI.addButton("Rate Movie", this::rateMovie);
+        UI.addButton("Show All Movies", this::printAll);
+        UI.addButton("Recommend Movies", this::recommendMovie);
+        UI.setMouseListener(r::manageMouse);
+        UI.addButton("Quit", UI::quit);
+        
+        // Sets the size of the whole window and the divider
+        UI.setWindowSize(CANVASWIDTH, CANVASHEIGHT);
+        UI.setDivider(0.4);
+        this.drawMain();
     }
     
     /**
@@ -77,7 +82,7 @@ public class GUI
             }
         }
         again = true;
-        // Checks if the year is valid
+        // Checks if the year is valid (between 1880 and 2030)
         while (again) 
         {
             movieYear = UI.askInt("Release Year: ");
@@ -165,7 +170,7 @@ public class GUI
      */
     public void searchEither(String search)
     {
-        //String search = UI.askString("Director or Genre: ");
+        // Sets the input to be all lower case
         search = search.toLowerCase();
         r.searchEither(search);
     }
@@ -175,9 +180,9 @@ public class GUI
      */
     public void rateMovie()
     {
-        // Loop to check if the entered movie exists
         movieRate = UI.askString("Movie Title: ");
         movieRate = movieRate.toLowerCase();
+        // Loop to check if the entered movie exists
         while (again) 
         {
             // Checks if the movie exists

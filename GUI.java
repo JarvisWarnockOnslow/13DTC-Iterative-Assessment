@@ -26,7 +26,7 @@ public class GUI
     
     // Constants to set the width and height of the GUI
     private static final int CANVASWIDTH = 1000;
-    private static final int CANVASHEIGHT = 750;
+    private static final int CANVASHEIGHT = 650;
     /**
      * Constructor for the GUI class
      */

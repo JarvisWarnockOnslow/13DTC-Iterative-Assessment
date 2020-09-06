@@ -27,7 +27,7 @@ public class Movie
     private static final int HEIGHT = 50;
     private static final int OVALWIDTH = 50;
     private static final int OVALHEIGHT = 50;
-    private static final int SIZE = 350;
+    private static final int SIZE = 325;
 
     /**
      * Constructor for objects of class Movie
@@ -162,15 +162,15 @@ public class Movie
         UI.clearGraphics();
         GUI.drawMain();
         UI.drawImage("images/movie-placeholder.png", 
-                     this.STARTX, this.startY - 100, this.SIZE, this.SIZE + 85);
+                     this.STARTX, this.startY - 100, this.SIZE, this.SIZE + 35);
         UI.setColor(Color.black);
         UI.setFontSize(30);
         UI.drawString(this.movie + " (" + this.year + ")", 
-                      this.STARTX + 15, this.startY + 375);
+                      this.STARTX + 15, this.startY + 300);
         UI.drawString("Director: " + this.director, 
-                      this.STARTX + 15, this.startY + 425);
+                      this.STARTX + 15, this.startY + 350);
         UI.drawString("Genre: " + this.genre, 
-                      this.STARTX + 15, this.startY + 475);
+                      this.STARTX + 15, this.startY + 400);
         // Checks if the movie has been rated
         if (rating != -1)
         {
@@ -187,18 +187,26 @@ public class Movie
             {
                 UI.setColor(Color.red);
             }
-            UI.fillOval(this.STARTX + 15, this.startY + 500, 
+            UI.fillOval(this.STARTX + 15, this.startY + 410, 
                         this.OVALWIDTH, this.OVALHEIGHT);
             UI.setColor(Color.white);
             UI.setFontSize(20);
             UI.drawString(this.ratingString, this.STARTX + 20, 
-                          this.startY + 533);
+                          this.startY + 443);
         } 
         else 
         {
             UI.drawString("Movie not yet rated", this.STARTX + 15, 
-                          this.startY + 525);
+                          this.startY + 450);
         }
+        this.startY = 0;
+    }
+    
+    /**
+     * A method to reset the startY position
+     */
+    public void clearPos()
+    {
         this.startY = 0;
     }
     

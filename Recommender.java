@@ -289,6 +289,7 @@ public class Recommender
                 {
                     movieRecommendations.get(key).drawInfo();
                 }
+                movieRecommendations.get(key).clearPos();
             }
         }
     }
